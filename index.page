@@ -1,0 +1,404 @@
+from pathlib import Path
+
+html = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUBG Premium Account - Devil Store</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #030506;
+      color: #fff;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(255, 40, 0, .08), transparent 42%),
+        linear-gradient(135deg, #020303, #080a0b 55%, #030405);
+    }
+
+    /* Game-style background HUD */
+    .hud-lines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .25;
+      background:
+        linear-gradient(90deg, transparent 49.9%, rgba(255,255,255,.025) 50%, transparent 50.1%),
+        linear-gradient(0deg, transparent 49.9%, rgba(255,255,255,.025) 50%, transparent 50.1%);
+      background-size: 90px 90px;
+    }
+
+    .popup {
+      position: relative;
+      width: min(100%, 440px);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(16,18,18,.98), rgba(6,8,8,.99));
+      border: 1px solid rgba(255, 92, 20, .42);
+      clip-path: polygon(
+        0 0,
+        calc(100% - 18px) 0,
+        100% 18px,
+        100% 100%,
+        18px 100%,
+        0 calc(100% - 18px)
+      );
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.8),
+        0 0 45px rgba(255,65,0,.09);
+    }
+
+    .top-accent {
+      height: 4px;
+      background: linear-gradient(90deg, #ff3b00, #ff9a00, #ff3b00);
+      box-shadow: 0 0 18px rgba(255,70,0,.55);
+    }
+
+    .scanline {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .08;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 3px,
+        rgba(255,255,255,.05) 4px
+      );
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 24px 25px 21px;
+    }
+
+    .game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .game-label {
+      color: #ff7a22;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+    }
+
+    .online {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #8c948f;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .online-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #55d66b;
+      box-shadow: 0 0 9px rgba(85,214,107,.8);
+    }
+
+    .crosshair {
+      width: 66px;
+      height: 66px;
+      margin: 19px auto 15px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,111,30,.32);
+      background: rgba(255,80,0,.045);
+      transform: rotate(45deg);
+    }
+
+    .crosshair::before,
+    .crosshair::after {
+      content: "";
+      position: absolute;
+      background: #ff6b1a;
+      opacity: .7;
+    }
+
+    .crosshair::before {
+      width: 1px;
+      height: 82px;
+    }
+
+    .crosshair::after {
+      width: 82px;
+      height: 1px;
+    }
+
+    .crosshair-inner {
+      width: 27px;
+      height: 27px;
+      border: 2px solid #ff6b1a;
+      transform: rotate(-45deg);
+      position: relative;
+      box-shadow: 0 0 16px rgba(255,90,0,.18);
+    }
+
+    .crosshair-inner::after {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #ff6b1a;
+    }
+
+    .title {
+      margin: 0;
+      text-align: center;
+      font-family: Orbitron, Inter, sans-serif;
+      font-size: clamp(22px, 6vw, 29px);
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    .title span {
+      display: block;
+      margin-top: 4px;
+      color: #ff6418;
+      text-shadow: 0 0 18px rgba(255,90,20,.22);
+    }
+
+    .subtitle {
+      max-width: 350px;
+      margin: 12px auto 19px;
+      text-align: center;
+      color: #8b928e;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    .mission {
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.025);
+      padding: 11px 12px;
+      margin-bottom: 16px;
+    }
+
+    .mission-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .mission-name {
+      color: #c6cbc8;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .mission-status {
+      color: #ff6b1a;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .bar {
+      height: 4px;
+      background: #1d211f;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      width: 82%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff3b00, #ff9a00);
+      box-shadow: 0 0 10px rgba(255,75,0,.4);
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 43px;
+      width: 100%;
+      color: #090a09;
+      background: linear-gradient(180deg, #ff9a28, #ff6414);
+      border: 1px solid #ffb34f;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      clip-path: polygon(
+        0 0,
+        calc(100% - 10px) 0,
+        100% 10px,
+        100% 100%,
+        10px 100%,
+        0 calc(100% - 10px)
+      );
+      box-shadow: 0 8px 25px rgba(255,75,0,.18);
+      transition: .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 12px 30px rgba(255,75,0,.3);
+    }
+
+    .button span {
+      margin-left: 8px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 12px;
+      text-align: center;
+      color: #4f5752;
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    .corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: rgba(255,100,25,.6);
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    .corner.tl {
+      top: 10px;
+      left: 10px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .corner.br {
+      right: 10px;
+      bottom: 10px;
+      border-width: 0 1px 1px 0;
+    }
+
+    @media (max-width: 420px) {
+      .content {
+        padding: 21px 18px 18px;
+      }
+
+      .crosshair {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hud-lines"></div>
+
+  <div class="popup">
+    <div class="top-accent"></div>
+    <div class="scanline"></div>
+
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+
+    <div class="content">
+
+      <div class="game-header">
+        <div class="game-label">DEVIL STORE // MARKET</div>
+        <div class="online">
+          <span class="online-dot"></span>
+          Online
+        </div>
+      </div>
+
+      <div class="crosshair">
+        <div class="crosshair-inner"></div>
+      </div>
+
+      <h1 class="title">
+        PREMIUM
+        <span>PUBG ACCOUNT</span>
+      </h1>
+
+      <p class="subtitle">
+        Need a premium PUBG account?
+        Enter the Devil Store account market and
+        find your next gaming account.
+      </p>
+
+      <div class="mission">
+        <div class="mission-top">
+          <div class="mission-name">Account Market Access</div>
+          <div class="mission-status">Available</div>
+        </div>
+
+        <div class="bar">
+          <span></span>
+        </div>
+      </div>
+
+      <a
+        class="button"
+        href="https://devilstoreaccount.sellhub.cx/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Enter Account Store
+        <span>→</span>
+      </a>
+
+      <div class="footer">
+        PUBG ACCOUNTS // DEVIL STORE // LEVEL UP
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
+"""
+
+path = Path("/mnt/data/devil-store-pubg-game-ui-popup.html")
+path.write_text(html, encoding="utf-8")
+
+print(f"Created: {path}")
