@@ -1,100 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devil Store - Premium PUBG Accounts</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Devil Store — PUBG DMA</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: clamp(12px, 4vw, 32px);
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 0, 55, .16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(255, 0, 55, .08),
+      transparent 30%
+    ),
+    #070707;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+
+  overflow-x: hidden;
+}
+
+/* =========================
+   BANNER
+========================= */
+
+.banner {
+  position: relative;
+
+  width: min(100%, 720px);
+
+  display: flex;
+  align-items: center;
+
+  padding: clamp(24px, 5vw, 42px);
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      110deg,
+      #101012 0%,
+      #0c0c0e 58%,
+      #170006 100%
+    );
+
+  border: 1px solid #2c2c30;
+
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, .65),
+    0 0 45px rgba(237, 0, 55, .08);
+}
+
+/* Right red edge */
+
+.banner::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 4px;
+  height: 100%;
+
+  background: #ed0037;
+
+  box-shadow:
+    0 0 25px #ed0037;
+}
+
+/* Diagonal decoration */
+
+.banner::before {
+  content: "";
+
+  position: absolute;
+
+  top: -100px;
+  right: clamp(20px, 10vw, 70px);
+
+  width: clamp(100px, 20vw, 170px);
+  height: 480px;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(237, 0, 55, .16),
+      transparent
+    );
+
+  transform: rotate(25deg);
+
+  pointer-events: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 520px;
+}
+
+/* =========================
+   LABEL
+========================= */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: clamp(10px, 2vw, 15px);
+
+  color: #ed0037;
+
+  font-size: clamp(8px, 1.5vw, 9px);
+  font-weight: 900;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.label span {
+  width: 7px;
+  height: 7px;
+
+  flex: 0 0 7px;
+
+  border-radius: 50%;
+
+  background: #ed0037;
+
+  box-shadow:
+    0 0 12px #ed0037;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+  margin: 0;
+
+  max-width: 100%;
+
+  font-size: clamp(27px, 6vw, 36px);
+  line-height: 1.05;
+
+  font-weight: 900;
+
+  letter-spacing: clamp(-1.5px, -.2vw, -1px);
+}
+
+h1 span {
+  color: #ed0037;
+
+  text-shadow:
+    0 0 20px rgba(237, 0, 55, .35);
+}
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.description {
+  width: 100%;
+  max-width: 460px;
+
+  margin:
+    clamp(11px, 2vw, 15px)
+    0
+    clamp(18px, 4vw, 23px);
+
+  color: #88888f;
+
+  font-size: clamp(11px, 2vw, 12px);
+  line-height: 1.7;
+}
+
+/* =========================
+   PRODUCT TAGS
+========================= */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  margin-bottom: clamp(18px, 4vw, 23px);
+}
+
+.tag {
+  padding: 7px 10px;
+
+  background: rgba(255, 255, 255, .035);
+
+  border: 1px solid #29292d;
+
+  color: #bcbcc1;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta {
+  width: fit-content;
+  max-width: 100%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: clamp(15px, 4vw, 25px);
+
+  padding: 13px 18px;
+
+  background: #ed0037;
+
+  border: 1px solid #ff1744;
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  box-shadow:
+    0 0 20px rgba(237, 0, 55, .20);
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+}
+
+.cta:hover {
+  background: #ff1744;
+
+  box-shadow:
+    0 0 35px rgba(237, 0, 55, .42);
+
+  transform: translateX(3px);
+}
+
+.cta:active {
+  transform: scale(.98);
+}
+
+.cta-arrow {
+  font-size: 16px;
+  line-height: 10px;
+}
+
+/* =========================
+   RIGHT VISUAL
+========================= */
+
+.visual {
+  position: absolute;
+
+  right: clamp(25px, 7vw, 55px);
+  top: 50%;
+
+  width: clamp(90px, 17vw, 130px);
+  height: clamp(90px, 17vw, 130px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(237, 0, 55, .25);
+
+  transform:
+    translateY(-50%)
+    rotate(45deg);
+
+  pointer-events: none;
+}
+
+.visual::before {
+  content: "";
+
+  width: 68%;
+  height: 68%;
+
+  border: 1px solid rgba(237, 0, 55, .35);
+
+  box-shadow:
+    0 0 35px rgba(237, 0, 55, .12);
+}
+
+.visual-icon {
+  position: absolute;
+
+  transform: rotate(-45deg);
+
+  color: #ed0037;
+
+  font-size: clamp(28px, 5vw, 42px);
+
+  text-shadow:
+    0 0 25px rgba(237, 0, 55, .55);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 700px) {
+
+  .banner {
+    max-width: 600px;
+  }
+
+  .visual {
+    right: 25px;
+    opacity: .65;
+  }
+
+  .content {
+    max-width: 75%;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  body {
+    padding: 14px;
+  }
+
+  .banner {
+    display: block;
+
+    padding: 25px 21px;
+
+    border-radius: 3px;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .visual {
+    width: 85px;
+    height: 85px;
+
+    right: -20px;
+
+    opacity: .25;
+  }
+
+  .description {
+    max-width: 90%;
+  }
+
+  .tags {
+    gap: 6px;
+  }
+
+  .tag {
+    padding: 6px 8px;
+  }
+
+  .cta {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    justify-content: space-between;
+  }
+}
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 360px) {
+
+  body {
+    padding: 10px;
+  }
+
+  .banner {
+    padding: 22px 17px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .description {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .label {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+  }
+
+  .tag {
+    font-size: 7px;
+  }
+
+  .cta {
+    font-size: 9px;
+  }
+}
+
+/* =========================
+   REDUCE MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cta {
+    transition: none;
+  }
+
+  .cta:hover {
+    transform: none;
+  }
+}
+</style>
 </head>
 
-<body style="
-  margin:0;
-  min-height:100vh;
-  background:#080808;
-  color:#fff;
-  font-family:Inter,Arial,sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-">
+<body>
 
-  <div style="
-    width:100%;
-    max-width:370px;
-    padding:22px 20px;
-    border-radius:14px;
-    background:#111113;
-    border:1px solid #27272b;
-    box-shadow:0 15px 40px rgba(0,0,0,.45);
-    text-align:center;
-  ">
+<div class="banner">
 
-    <div style="
-      display:inline-block;
-      padding:5px 10px;
-      margin-bottom:11px;
-      border-radius:5px;
-      background:rgba(237,0,55,.08);
-      color:#ed0037;
-      font-size:9px;
-      font-weight:800;
-      letter-spacing:1.3px;
-      text-transform:uppercase;
-    ">
-      🎮 PUBG ACCOUNTS
+  <div class="content">
+
+    <div class="label">
+      <span></span>
+      DEVIL STORE — DMA
     </div>
 
-    <h1 style="
-      margin:0;
-      font-size:21px;
-      line-height:1.25;
-      font-weight:800;
-    ">
-      Looking for a
-      <span style="color:#ed0037;">
-        Premium PUBG Account?
-      </span>
+    <h1>
+      PUBG DMA
+      <span>STORE</span>
     </h1>
 
-    <p style="
-      margin:11px 0 18px;
-      color:#8b8b92;
-      font-size:12px;
-      line-height:1.6;
-    ">
-      Browse our premium PUBG accounts and
-      find the perfect account for you.
+    <p class="description">
+      Our dedicated store for PUBG DMA products.
+      Neptune and VPRO are now available through our separate DMA store.
     </p>
 
-    <a
-      href="https://devilstoreaccount.sellhub.cx/"
-      target="_blank"
-      rel="noopener noreferrer"
-      style="
-        display:block;
-        width:100%;
-        padding:11px 0;
-        border-radius:7px;
-        background:#ed0037;
-        border:1px solid #ff1744;
-        color:#fff;
-        text-decoration:none;
-        font-size:11px;
-        font-weight:800;
-      "
-    >
-      VISIT ACCOUNT STORE →
-    </a>
-
-    <div style="
-      margin-top:10px;
-      color:#505057;
-      font-size:8px;
-    ">
-      Devil Store • Premium Gaming Accounts
+    <div class="tags">
+      <div class="tag">NEPTUNE</div>
+      <div class="tag">VPRO</div>
+      <div class="tag">DMA ONLY</div>
     </div>
 
+    <a
+      class="cta"
+      href="https://devilstoredmaservices.sellhub.cx/#products-list"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Explore Devil Store DMA Products"
+    >
+      <span>EXPLORE DMA STORE</span>
+      <span class="cta-arrow">→</span>
+    </a>
+
   </div>
+
+  <div class="visual" aria-hidden="true">
+    <div class="visual-icon">⚡</div>
+  </div>
+
+</div>
 
 </body>
 </html>
